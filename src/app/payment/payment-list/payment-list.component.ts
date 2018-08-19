@@ -3,6 +3,8 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 
 import { Payment } from '../entities/payment.model';
 import { PaymentService } from '../payment.service';
+import { PaymentChangeStatusComponent } from '../payment-change-status/payment-change-status.component';
+import { PaymentChangeStatusRequest } from '../entities/payment-change-status-request.model';
 
 class FilterStatus {
   pending = true;
@@ -30,9 +32,29 @@ export class PaymentListComponent implements OnInit {
     this.getPayments();
   }
 
-  onStatusChanged() {
+  onFilterStatusChanged() {
     console.log('onStatusChanged', this.filterStatus);
     this.getPayments();
+  }
+
+  onChangeStatus(paymentId) {
+    this.paymentListService.getPayment(paymentId).subscribe(item => {
+
+      const paymentChangeStatusRequest: PaymentChangeStatusRequest = {
+        id: item.id,
+        status: undefined,
+        reason: item.reason
+      };
+
+      const dialogRef = this.dialog.open(PaymentChangeStatusComponent, {
+        data: paymentChangeStatusRequest
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (!result) { return; }
+        this.getPayments();
+      });
+    });
   }
 
   private getPayments() {
@@ -42,7 +64,7 @@ export class PaymentListComponent implements OnInit {
 
     if (query.length > 0) {
       query = '?' + query;
-      query.substr(0, query.length - 1);
+      query = query.substr(0, query.length - 1);
     }
 
     console.log(query);

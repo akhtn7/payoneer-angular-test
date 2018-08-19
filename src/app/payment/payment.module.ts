@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from '../shared/material.module';
 import { PaymentListComponent } from './payment-list/payment-list.component';
+import { PaymentChangeStatusComponent } from './payment-change-status/payment-change-status.component';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { PaymentListComponent } from './payment-list/payment-list.component';
     FormsModule,
     MaterialModule
   ],
-  declarations: [PaymentListComponent],
-  exports: [PaymentListComponent]
+  declarations: [PaymentListComponent, PaymentChangeStatusComponent],
+  entryComponents: [PaymentChangeStatusComponent],
+  exports: [PaymentListComponent, PaymentChangeStatusComponent]
 })
 export class PaymentModule { }

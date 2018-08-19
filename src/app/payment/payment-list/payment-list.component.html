@@ -2,13 +2,13 @@
   <div>
     <div class="filter-checkbox">Show payments with status: </div>
     <div class="filter-checkbox">
-      <mat-checkbox [(ngModel)]="filterStatus.pending" (click)="onStatusChanged()" checked>Pending</mat-checkbox>
+      <mat-checkbox [(ngModel)]="filterStatus.pending" (click)="onFilterStatusChanged()" checked>Pending</mat-checkbox>
     </div>
     <div class="filter-checkbox">
-      <mat-checkbox [(ngModel)]="filterStatus.approved" (click)="onStatusChanged()" checked>Approved</mat-checkbox>
+      <mat-checkbox [(ngModel)]="filterStatus.approved" (click)="onFilterStatusChanged()" checked>Approved</mat-checkbox>
     </div>
     <div class="filter-checkbox">
-      <mat-checkbox [(ngModel)]="filterStatus.rejected" (click)="onStatusChanged()" checked>Rejected</mat-checkbox>
+      <mat-checkbox [(ngModel)]="filterStatus.rejected" (click)="onFilterStatusChanged()" checked>Rejected</mat-checkbox>
     </div>
   </div>
   <div>
@@ -40,12 +40,13 @@
       </ng-container>
 
       <ng-container matColumnDef="changeStatus">
-        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Change status</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <a (click)="changeStatus(element.paymentId)">
-            <i class="material-icons">edit</i>
-            Change
-          </a>
+          <div *ngIf="element.status === 0">
+            <button mat-button color="primary" (click)="onChangeStatus(element.id)">
+              <i class="material-icons">swap_vert</i>Change status
+            </button>
+          </div>
         </mat-cell>
       </ng-container>
 
