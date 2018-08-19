@@ -24,8 +24,6 @@ export class PaymentChangeStatusComponent {
   onSave(): void {
     this.paymentListService.updatePaymentStatus(this.data).subscribe(
       (response: PaymentChangeStatusResponse) => {
-        console.log('response:', response);
-
         if (response.result === PaymentChangeStatusResult.ok) {
           this.dialogRef.close(this.data);
           return;

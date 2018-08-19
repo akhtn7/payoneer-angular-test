@@ -62,16 +62,16 @@ export class PaymentListComponent implements OnInit {
 
   private getPayments() {
     const query = this.createQueryString();
-
-    console.log('query:', query);
-    this.paymentListService.getPayments(query).subscribe(data => {
-      this.dataSource.data = data.map(item => {
-        item.paymentDate = new Date(item.paymentDate);
-        return item;
+    this.paymentListService.getPayments(query).subscribe(
+      data => {
+        this.dataSource.data = data.map(item => {
+          item.paymentDate = new Date(item.paymentDate);
+          return item;
+        },
+          error => {
+            console.log('error:', error);
+          });
       });
-
-      console.log('data:', this.dataSource.data);
-    });
   }
 
   private setQueryParams(): Promise<boolean> {
@@ -91,27 +91,31 @@ export class PaymentListComponent implements OnInit {
   }
 
   private changeStatusHandler(paymentId: number) {
-    this.paymentListService.getPayment(paymentId).subscribe(item => {
-      const paymentChangeStatusRequest: PaymentChangeStatusRequest = {
-        id: item.id,
-        status: undefined,
-        reason: item.reason
-      };
+    this.paymentListService.getPayment(paymentId).subscribe(
+      item => {
+        const paymentChangeStatusRequest: PaymentChangeStatusRequest = {
+          id: item.id,
+          status: undefined,
+          reason: item.reason
+        };
 
-      const dialogRef = this.dialog.open(PaymentChangeStatusComponent, {
-        data: paymentChangeStatusRequest
+        const dialogRef = this.dialog.open(PaymentChangeStatusComponent, {
+          data: paymentChangeStatusRequest
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.changeStatusPaymentId = undefined;
+          this.setQueryParams();
+
+          if (!result) { return; }
+
+          this.getPayments();
+
+        });
+      },
+      error => {
+        console.log('error:', error);
       });
-
-      dialogRef.afterClosed().subscribe(result => {
-        this.changeStatusPaymentId = undefined;
-        this.setQueryParams();
-
-        if (!result) { return; }
-
-        this.getPayments();
-
-      });
-    });
   }
 
   private createQueryString(): string {

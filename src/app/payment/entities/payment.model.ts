@@ -1,5 +1,5 @@
 export class Payment  {
-    id?: number;
+    id: number;
     accountHolderId: number;
     accountHolderName: string;
     paymentDate: Date;
