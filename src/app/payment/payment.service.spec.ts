@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { PaymentService } from './payment.service';
 import { PaymentChangeStatusRequest } from './entities/payment-change-status-request.model';
 
-fdescribe('PaymentService', () => {
+describe('PaymentService', () => {
   let subject;
   const mockHttpClient = jasmine.createSpyObj('httpClient', ['get', 'put']);
 

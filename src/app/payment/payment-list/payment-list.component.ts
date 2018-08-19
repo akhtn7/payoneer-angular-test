@@ -64,6 +64,7 @@ export class PaymentListComponent implements OnInit {
     const query = this.createQueryString();
     this.paymentListService.getPayments(query).subscribe(
       data => {
+        console.log(JSON.stringify(data));
         this.dataSource.data = data.map(item => {
           item.paymentDate = new Date(item.paymentDate);
           return item;
