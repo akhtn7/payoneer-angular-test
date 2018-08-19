@@ -1,57 +1,64 @@
 <div>
   <div>
-    <div class="filter-checkbox">Show payments with status: </div>
-    <div class="filter-checkbox">
-      <mat-checkbox [(ngModel)]="filterStatus.pending" (click)="onFilterStatusChanged()" checked>Pending</mat-checkbox>
-    </div>
-    <div class="filter-checkbox">
-      <mat-checkbox [(ngModel)]="filterStatus.approved" (click)="onFilterStatusChanged()" checked>Approved</mat-checkbox>
-    </div>
-    <div class="filter-checkbox">
-      <mat-checkbox [(ngModel)]="filterStatus.rejected" (click)="onFilterStatusChanged()" checked>Rejected</mat-checkbox>
-    </div>
+    <h1>Pending payments</h1>
   </div>
   <div>
-    <mat-table #table [dataSource]="dataSource" matSort matSortActive="paymentDate" matSortDirection="desc" matSortDisableClear="true">
-      <ng-container matColumnDef="paymentDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Date </mat-header-cell>
-        <mat-cell class="payment-date-column" *matCellDef="let element">
-          {{element.paymentDate | date: 'dd/MM/yyyy HH:mm'}}
-        </mat-cell>
-      </ng-container>
+    <div>
+      <div>
+        <div class="filter-checkbox">Show payments with status: </div>
+        <div class="filter-checkbox">
+          <mat-checkbox [(ngModel)]="filterStatus.pending" (change)="onFilterStatusChanged()">Pending</mat-checkbox>
+        </div>
+        <div class="filter-checkbox">
+          <mat-checkbox [(ngModel)]="filterStatus.approved" (change)="onFilterStatusChanged()">Approved</mat-checkbox>
+        </div>
+        <div class="filter-checkbox">
+          <mat-checkbox [(ngModel)]="filterStatus.rejected" (change)="onFilterStatusChanged()">Rejected</mat-checkbox>
+        </div>
+      </div>
+      <div>
+        <mat-table #table [dataSource]="dataSource" matSort matSortActive="paymentDate" matSortDirection="desc" matSortDisableClear="true">
+          <ng-container matColumnDef="paymentDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Date </mat-header-cell>
+            <mat-cell class="payment-date-column" *matCellDef="let element">
+              {{element.paymentDate | date: 'dd/MM/yyyy HH:mm'}}
+            </mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <span [ngClass]="{'red': element.status === 99, 'green': element.status === 1}">
-            {{element.statusDescription}}
-          </span>
-        </mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <span [ngClass]="{'red': element.status === 99, 'green': element.status === 1}">
+                {{element.statusDescription}}
+              </span>
+            </mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="amount">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.amount}} {{element.currency}}</mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.amount}} {{element.currency}}</mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="reason">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Reason </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.reason}} </mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="reason">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Reason </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.reason}} </mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="changeStatus">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Change status</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div *ngIf="element.status === 0">
-            <button mat-button color="primary" (click)="onChangeStatus(element.id)">
-              <i class="material-icons">swap_vert</i>Change status
-            </button>
-          </div>
-        </mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="changeStatus">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Change status</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <div *ngIf="element.status === 0">
+                <button mat-button color="primary" (click)="onChangeStatus(element.id)">
+                  <i class="material-icons">swap_vert</i>Change status
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </div>
   </div>
 </div>

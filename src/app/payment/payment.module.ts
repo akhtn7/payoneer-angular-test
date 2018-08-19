@@ -6,7 +6,6 @@ import { MaterialModule } from '../shared/material.module';
 import { PaymentListComponent } from './payment-list/payment-list.component';
 import { PaymentChangeStatusComponent } from './payment-change-status/payment-change-status.component';
 
-
 @NgModule({
   imports: [
     CommonModule,

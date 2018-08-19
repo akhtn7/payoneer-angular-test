@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material.module';
 import { PaymentModule } from './payment/payment.module';
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +22,8 @@ import { PaymentModule } from './payment/payment.module';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    PaymentModule
+    PaymentModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
