@@ -52,8 +52,6 @@ export class PaymentListComponent implements OnInit {
   }
 
   onFilterStatusChanged() {
-    console.log('');
-    console.log('onFilterStatusChanged:', this.filterStatus);
     this.setQueryParams();
   }
 
@@ -111,12 +109,13 @@ export class PaymentListComponent implements OnInit {
         if (!result) { return; }
 
         this.getPayments();
+
       });
     });
   }
 
   private createQueryString(): string {
-   let query = this.filterStatus.pending ? 'paymentStatus=0&' : '';
+    let query = this.filterStatus.pending ? 'paymentStatus=0&' : '';
     query += this.filterStatus.approved ? 'paymentStatus=1&' : '';
     query += this.filterStatus.rejected ? 'paymentStatus=99&' : '';
 

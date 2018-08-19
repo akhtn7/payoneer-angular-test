@@ -8,15 +8,15 @@
     </div>
     <div>
       <mat-form-field>
-        <input placeholder="Reason" matInput name="reason" [(ngModel)]="data.reason" maxlength="250" required>
+        <input placeholder="Reason" matInput name="reason" [(ngModel)]="data.reason" maxlength="250" required autocomplete="off">
         <mat-error *ngIf="paymentChangeStatusForm.controls.reason?.invalid">
             Reason is required
         </mat-error>
       </mat-form-field>
     </div>
     <div mat-dialog-actions class="button-container">
-      <button mat-raised-button [mat-dialog-close]="data" [disabled]="paymentChangeStatusForm.invalid" color="primary" (click)="onSave()">Ok</button>
-      <button mat-raised-button [mat-dialog-close]="" (click)="onCancel()">Cancel</button>
+      <button mat-raised-button [disabled]="paymentChangeStatusForm.invalid" color="primary" (click)="onSave()">Ok</button>
+      <button mat-raised-button (click)="onCancel()">Cancel</button>
     </div>
   </form>
 </div>
